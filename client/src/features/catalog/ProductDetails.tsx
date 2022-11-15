@@ -2,7 +2,9 @@ import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, T
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
+import NotFound from "../errors/NotFound";
 
 export default function ProductDetails()
 {
@@ -18,8 +20,8 @@ export default function ProductDetails()
       .finally(() => setLoading(false))
   }, [id])
 
-  if (loading) return <h3>Loading...</h3>
-  if (!product) return <h3>Product not found</h3>
+  if (loading) return <LoadingComponent message='Getting your product...' />
+  if (!product) return <NotFound></NotFound>
 
   return (
     <Grid container spacing={6}>
